@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -7,12 +8,23 @@
 // You can read more here:
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
-const cucumber = require('cypress-cucumber-preprocessor').default;
-const {downloadFile} = require('cypress-downloadfile/lib/addPlugin');
 
-module.exports = (on, config) => {
-  on('file:preprocessor', cucumber());
-  on('task',{
-    downloadFile
-  })
+// This function is called when a project is opened or re-opened (e.g. due to
+// the project's config changing)
+
+/**
+ * @type {Cypress.PluginConfig}
+ */
+
+const { beforeRunHook, afterRunHook } = require('cypress-mochawesome-reporter/lib');
+module.exports = (on) => {
+  on('before:run', async (details) => {
+    console.log('override before:run');
+    await beforeRunHook(details);
+  });
+
+  on('after:run', async () => {
+    console.log('override after:run');
+    await afterRunHook();
+  });
 };
