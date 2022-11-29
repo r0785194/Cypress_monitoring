@@ -8,11 +8,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "cypress-open": "npx cypress open --config-file cypress.json",
+    "cypress-open": "npx cypress open --config-file cypress.config.js",
     "cypress-run-project": "npm run clean-data && npm run run-project",
     "cypress-run-examples": "npm run clean-data && npm run run-examples",
-    "run-project": "npx cypress run --config-file cypress.json --spec \"cypress/integration/project/*.js\"",
-    "run-examples": "npx cypress run --config-file cypress.json --spec \"cypress/integration/examples/*.js\"",
+    "run-project": "npx cypress run --config-file cypress.config.js --spec \"cypress/e2e/project/*.js\"",
+    "run-examples": "npx cypress run --config-file cypress.config.js --spec \"cypress/e2e/examples/*.js\"",
     "clean-data": "npm run clean-report && npm run clean-videos && npm run clean-screenshots",
     "clean-report": "rm -rf ./cypress/reports",
     "clean-videos": "rm -rf ./cypress/videos",
@@ -20,13 +20,12 @@
   },
   "author": "Refleqt NV",
   "license": "Private",
-  "dependencies": {},
   "keywords": [
     "cypress",
     "testing"
   ],
   "devDependencies": {
-    "cypress": "^9.5.1",
+    "cypress": "^11.2.0",
     "cypress-mochawesome-reporter": "^3.0.1"
   }
 }
