@@ -17,8 +17,8 @@ jobs:
       - run:
           name: building docker image
           command: |
-            ls
             docker compose up
+            docker container cp project-test-factory-cypress-1:/opt/app/cypress/reports/ /home/circleci/project/factory/container
           working_directory: factory
       - store_test_results:
           path: /home/circleci/project/factory/container/junit/
