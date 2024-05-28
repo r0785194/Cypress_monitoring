@@ -10,8 +10,8 @@ orbs:
 # See: https://circleci.com/docs/configuration-reference/#workflows
 jobs:
   cypress-test-factory:
-    docker:
-      - image: ubuntu
+    machine:
+      image: ubuntu-2204:2024.04.4
     steps:
       - checkout
       - run:
