@@ -17,7 +17,7 @@ jobs:
       - run:
           name: building docker image
           command: |
-            docker compose build
+            ls
             docker compose up
           working_directory: factory
       - store_test_results:

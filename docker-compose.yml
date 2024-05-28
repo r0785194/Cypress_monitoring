@@ -12,7 +12,7 @@ services:
         CYPRESS_VERSION: ${CYPRESS_VERSION}
         CHROME_VERSION: ${CHROME_VERSION}
         BASE_TEST_IMAGE: cypress/factory:${FACTORY_VERSION}
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
       context: .
     command:
       cypress run -b chrome
