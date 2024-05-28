@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  test-factory-cypress-chrome:
+    ## if using local env file use this piece of code otherwise leave it out
+    env_file:
+      - .env
+    build:
+      ## Args can be added e.g. FIREFOX_VERSION, EDGE_VERSION ...
+      args:
+        CYPRESS_VERSION: ${CYPRESS_VERSION}
+        CHROME_VERSION: ${CHROME_VERSION}
+        BASE_TEST_IMAGE: cypress/factory
+      dockerfile: Dockerfile
+      context: .
+    command: cypress run -b chrome
