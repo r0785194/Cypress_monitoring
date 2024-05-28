@@ -19,7 +19,7 @@ jobs:
           command: |
             docker compose build
             docker compose up
-            docker container cp project-test-factory-cypress-chrome-1:/opt/app/cypress/reports/ /home/circleci/project/factory/container
+            docker container cp project-test-factory-cypress-1:/opt/app/cypress/reports/ /home/circleci/project/factory/container
           working_directory: factory
       - store_test_results:
           path: /home/circleci/project/factory/container/junit/

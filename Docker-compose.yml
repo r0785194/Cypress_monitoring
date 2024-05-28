@@ -1,17 +1,18 @@
 version: '3'
 
+  ## To run these tests you must export the environment variables in /factory/.env with `set -a && . ../.env && set +a`
+
 services:
 
-  test-factory-cypress-chrome:
-    ## if using local env file use this piece of code otherwise leave it out
+  test-factory-cypress:
     env_file:
       - .env
     build:
-      ## Args can be added e.g. FIREFOX_VERSION, EDGE_VERSION ...
       args:
         CYPRESS_VERSION: ${CYPRESS_VERSION}
         CHROME_VERSION: ${CHROME_VERSION}
-        BASE_TEST_IMAGE: cypress/factory
+        BASE_TEST_IMAGE: cypress/factory:${FACTORY_VERSION}
       dockerfile: Dockerfile
       context: .
-    command: cypress run -b chrome
+    command:
+      cypress run -b chrome
