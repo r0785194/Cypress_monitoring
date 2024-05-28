@@ -11,7 +11,7 @@ orbs:
 jobs:
   cypress-test-factory:
     docker:
-      - image: ubuntu-2204:2022.10.2
+      - image: ubuntu
     steps:
       - checkout
       - run:
