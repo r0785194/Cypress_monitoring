@@ -16,11 +16,11 @@
     "clean-data": "npm run clean-report && npm run clean-videos && npm run clean-screenshots",
     "clean-videos": "rm -rf ./cypress/videos",
     "clean-screenshots": "rm -rf ./cypress/screenshots",
-    "test-smoke": "echo @Smoke > grep-tag.txt && npx cypress run --env tags=@Smoke && npm run merge-reports && npm run clean-reports",
+    "test-smoke": "echo @Smoke > grep-tag.txt && npx cypress run --env tags=@Smoke && npm run merge-reports",
     "test-sanity": "echo @Sanity > grep-tag.txt && cypress run --env tags=@Sanity && npm run merge-reports && npm run clean-reports",
     "test-regression": "echo @Regression > grep-tag.txt && npx cypress run --env tags=@Regression && npm run merge-reports && npm run clean-reports",
     "merge-reports": "jrm cypress/reports/test-results.xml \"cypress/reports/junit*.xml\" && node add-grep-tag.js",
-    "clean-reports": "rm -rf /junit-test-results-*.xml"
+    "clean-reports": "del /s /q \"/junit-test-results-*.xml\""
   },
   "author": "Refleqt NV",
   "license": "Private",
