@@ -20,7 +20,7 @@
     "test-sanity": "echo @Sanity > grep-tag.txt && cypress run --env tags=@Sanity && npm run merge-reports && npm run clean-reports",
     "test-regression": "echo @Regression > grep-tag.txt && npx cypress run --env tags=@Regression && npm run merge-reports && npm run clean-reports",
     "merge-reports": "jrm cypress/reports/test-results.xml \"cypress/reports/junit*.xml\" && node add-grep-tag.js",
-    "clean-reports": "del /s /q \"/junit-test-results-*.xml\""
+    "clean-reports": "rm -rf /junit-test-results-*.xml"
   },
   "author": "Refleqt NV",
   "license": "Private",
