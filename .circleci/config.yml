@@ -37,11 +37,12 @@ jobs:
           command: .circleci/install_telegraf.sh
       - run:
           name: start telegraf
-          command: telegraf --config https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/telegrafs/0d03c1adaf7d0000
+          command: telegraf --config https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/telegrafs/0d1acfba36db3000
           background: true
       - run:
           name: Run tests
           command: npm run test-smoke
+          working_directory: factory
       - run: chmod +x .circleci/send_to_telegraf.sh
       - run:
           name: Post to telegraf
