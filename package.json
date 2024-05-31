@@ -14,9 +14,13 @@
     "run-project": "npx cypress run --config-file cypress.config.js --spec \"cypress/e2e/project/*.js\"",
     "run-examples": "npx cypress run --config-file cypress.config.js --spec \"cypress/e2e/examples/*.js\"",
     "clean-data": "npm run clean-report && npm run clean-videos && npm run clean-screenshots",
-    "clean-report": "rm -rf ./cypress/reports",
     "clean-videos": "rm -rf ./cypress/videos",
-    "clean-screenshots": "rm -rf ./cypress/screenshots"
+    "clean-screenshots": "rm -rf ./cypress/screenshots",
+    "test-smoke": "echo @Smoke > grep-tag.txt && npx cypress run --env tags=@Smoke && npm run merge-reports && npm run clean-reports",
+    "test-sanity": "echo @Sanity > grep-tag.txt && cypress run --env tags=@Sanity && npm run merge-reports && npm run clean-reports",
+    "test-regression": "echo @Regression > grep-tag.txt && npx cypress run --env tags=@Regression && npm run merge-reports && npm run clean-reports",
+    "merge-reports": "jrm cypress/reports/test-results.xml \"cypress/reports/junit*.xml\" && node add-grep-tag.js",
+    "clean-reports": "del /s /q \"/junit-test-results-*.xml\""
   },
   "author": "Refleqt NV",
   "license": "Private",
@@ -25,8 +29,16 @@
     "testing"
   ],
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.5",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "@cypress/grep": "^4.0.1",
+    "cucumber": "^6.0.7",
     "cypress": "13.6.2",
     "junit-report-merger": "7.0.0",
-    "mocha-junit-reporter": "2.2.1"
+    "mocha-junit-reporter": "2.2.1",
+    "xml2js": "^0.6.2"
+  },
+  "@badeball/cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
   }
 }
