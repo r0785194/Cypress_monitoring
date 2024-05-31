@@ -50,6 +50,54 @@ jobs:
           name: Post to telegraf
           command: .circleci/send_to_telegraf.sh
 
+  sanity-test:
+    machine:
+      image: ubuntu-2204:2024.04.4
+    steps:
+      - checkout
+      - run: chmod +x .circleci/install_telegraf.sh
+      - run:
+          name: Install Telegraf
+          command: .circleci/install_telegraf.sh
+      - run:
+          name: start telegraf
+          command: telegraf --config https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/telegrafs/0d1acfba36db3000
+          background: true
+      - run:
+          name: Install npm dependencies
+          command: npm install
+      - run:
+          name: Run tests
+          command: npm run test-sanity
+      - run: chmod +x .circleci/send_to_telegraf.sh
+      - run:
+          name: Post to telegraf
+          command: .circleci/send_to_telegraf.sh
+
+  regression-test:
+    machine:
+      image: ubuntu-2204:2024.04.4
+    steps:
+      - checkout
+      - run: chmod +x .circleci/install_telegraf.sh
+      - run:
+          name: Install Telegraf
+          command: .circleci/install_telegraf.sh
+      - run:
+          name: start telegraf
+          command: telegraf --config https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/telegrafs/0d1acfba36db3000
+          background: true
+      - run:
+          name: Install npm dependencies
+          command: npm install
+      - run:
+          name: Run tests
+          command: npm run test-regression
+      - run: chmod +x .circleci/send_to_telegraf.sh
+      - run:
+          name: Post to telegraf
+          command: .circleci/send_to_telegraf.sh
+
 workflows:
   version: 2
   build_and_test:
@@ -58,3 +106,11 @@ workflows:
       - smoke-test:
           requires:
             - cypress-test-factory
+      - sanity-test:
+          requires:
+            - cypress-test-factory
+            - smoke-test
+      - regression-test:
+          requires:
+            - cypress-test-factory
+            - sanity-test
